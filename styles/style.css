@@ -14,8 +14,51 @@ h1 {
 .box {
     align-items: center;
     display: flex;
+    flex-flow: row wrap;
     height: 70vh;
-    justify-content: space-around;
+    justify-content: space-evenly;
+}
+
+.player-container {
+    align-items: center;
+    background-color: hsl(0, 0%, 70%);
+    border-radius: 6rem;
+    color: black;
+    display: flex;
+    flex-flow: column wrap;
+    letter-spacing: 4px;
+    justify-content: center;
+}
+
+h2 {
+    font-size: 3.16em;
+    font-weight: normal;
+    padding: 4.8rem 6.4rem 1.6rem;
+}
+
+span {
+    font-size: 2.37em;
+    padding: 0 4.8rem 4.8rem;
+}
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 2.37em;
+        padding: 2.4rem 3.2rem 1.6rem;
+    }
+
+    span {
+        font-size: 1.78em;
+        padding: 0 2.4rem 2.4rem;
+    }
+
+    .human {
+        order: 1;
+    }
+
+    .bot {
+        order: 2;
+    }
 }
 
 table {
@@ -24,10 +67,6 @@ table {
     position: absolute;
     width: 35rem;
     z-index: 1000;
-}
-
-td {
-    margin: 4px;
 }
 
 .game-box {
