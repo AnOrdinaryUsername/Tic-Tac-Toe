@@ -9,14 +9,60 @@
       content="Your favorite childhood game with a new and refreshing take!"
     />
     <meta name="theme-color" content="#000000" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="images/favicon-16x16.png"
+    />
     <link rel="manifest" href="/site.webmanifest" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
     <link href="styles/normalize.css" rel="stylesheet" />
     <link href="styles/style.css" rel="stylesheet" />
   </head>
   <body>
-    <script src="scripts/script.js"></script>
+    <header>
+      <h1>Tic-Tac-Toe</h1>
+    </header>
+    <div class="box">
+      <table>
+        <tr>
+          <td col="0" data-row="0"></td>
+          <td col="1" data-row="0"></td>
+          <td col="2" data-row="0"></td>
+        </tr>
+        <tr>
+          <td col="0" data-row="1"></td>
+          <td col="1" data-row="1"></td>
+          <td col="2" data-row="1"></td>
+        </tr>
+        <tr>
+          <td col="0" data-row="2"></td>
+          <td col="1" data-row="2"></td>
+          <td col="2" data-row="2"></td>
+        </tr>
+      </table>
+      <div class="game-box">
+        <div class="vert-color vert-line-1"></div>
+        <div class="vert-color vert-line-2"></div>
+        <div class="horiz-color horiz-line-1"></div>
+        <div class="horiz-color horiz-line-2"></div>
+      </div>
+    </div>
+    <script src="game.js"></script>
   </body>
 </html>
