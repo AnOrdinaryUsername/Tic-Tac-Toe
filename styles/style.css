@@ -1,0 +1,116 @@
+header {
+    height: max-content;
+}
+
+h1 {
+    font-size: 3.16em;
+    font-weight: 400;
+    letter-spacing: 3px;
+    margin: 0;
+    padding: 0.67em 0 0;
+    text-align: center;
+}
+
+.box {
+    align-items: center;
+    display: flex;
+    height: 70vh;
+    justify-content: space-around;
+}
+
+table {
+    border-spacing: 3px;
+    height: 40rem;
+    position: absolute;
+    width: 35rem;
+    z-index: 1000;
+}
+
+td {
+    margin: 4px;
+}
+
+.game-box {
+    align-items: center;
+    display: grid;
+    height: 40rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+}
+
+.vert-color {
+    height: 0;
+    width: 1px;
+    border-left: 4px solid #000;
+}
+
+.vert-line-1 {
+    animation: vertical 3s;
+    animation-fill-mode: forwards;
+    grid-column: 1 / 2;
+    grid-row: 1 / 4;
+    justify-self: end;
+}
+
+.vert-line-2 {
+    animation: vertical 3s;
+    animation-fill-mode: forwards;
+    grid-column: 3 / 4;
+    grid-row: 1 / 4;
+    justify-self: start;
+}
+
+.horiz-color {
+    height: 0;
+    width: 1px;
+    border-bottom: 4px solid #000;
+}
+
+.horiz-line-1 {
+    align-self: end;
+    animation: horizontal 3s;
+    animation-fill-mode: forwards;
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+}
+
+.horiz-line-2 {
+    align-self: start;
+    animation: horizontal 3s;
+    animation-fill-mode: forwards;
+    grid-column: 1 / 4;
+    grid-row: 3 / 4;
+}
+
+@keyframes horizontal {
+    100% {
+        width: 350px;
+    }
+}
+
+@keyframes vertical {
+    100% {
+        height: 350px;
+    }
+}
+
+body {
+    background-color: hsl(0, 0%, 90%);
+    font-family: 'Varela Round', sans-serif;
+    font-size: 1.6rem;
+    min-height: 100%;
+}
+
+html {
+    font-size: 62.5%;
+    height: 100%;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
