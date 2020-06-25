@@ -11,6 +11,8 @@
         "sourceType": "module"
     },
     "rules": {
-        "allowTernary": 0
+        "no-plusplus": [2, {
+            "allowForLoopAfterthoughts": true
+        }]
     }
 }
