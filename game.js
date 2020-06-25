@@ -70,8 +70,8 @@ const GameBoard = (theWinner) => {
     const inARow = char.concat(char.concat(char));
     for (let i = 0; i < winCombo.length; ++i) {
       // winCombo acts as the index of board
-      // Ex. winCombo[2][2] grabs the first array stored in the array and grabs
-      //     the value, 8
+      // Ex. winCombo[2][2] grabs the 3rd array stored in the array and grabs
+      //     the 3rd index value, 8
       const a = board[winCombo[i][0]];
       const b = board[winCombo[i][1]];
       const c = board[winCombo[i][2]];
@@ -94,6 +94,8 @@ const GameBoard = (theWinner) => {
     return false;
   };
 
+  // Set entire board array to null, reset turns back to 1, and remove all
+  // Xs and Os on visual webpage
   const resetBoardState = () => {
     board.forEach;
   };
