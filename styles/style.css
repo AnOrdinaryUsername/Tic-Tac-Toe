@@ -22,11 +22,12 @@ h1 {
   font-size: 2.37em;
   letter-spacing: 0.2rem;
   padding: 3.2rem;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
   #result-text {
-    margin: 2.4rem;
+    margin: 0 2.4rem 2.4rem;
     padding: 1.6rem;
   }
 }
@@ -35,7 +36,7 @@ h1 {
   align-items: center;
   display: flex;
   flex-flow: row wrap;
-  height: 70vh;
+  margin: 4rem 0rem;
   justify-content: space-evenly;
 }
 
@@ -84,18 +85,13 @@ span {
 table {
   border-spacing: 3px;
   height: 36rem;
+  left: 50%;
   position: absolute;
   table-layout: fixed;
-  top: 15.5rem;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 36rem;
   z-index: 1000;
-}
-
-@media (max-width: 768px) {
-  table {
-    align-self: flex-start;
-    top: 9rem;
-  }
 }
 
 td {
@@ -112,9 +108,10 @@ td > span {
 .game-box {
   align-items: center;
   display: grid;
-  height: 40rem;
+  height: auto;
   grid-template-columns: repeat(3, 12rem);
   grid-template-rows: repeat(3, 12rem);
+  position: relative;
   justify-items: center;
 }
 
