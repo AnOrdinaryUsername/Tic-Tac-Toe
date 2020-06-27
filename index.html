@@ -38,29 +38,44 @@
     <header>
       <h1>Tic-Tac-Toe</h1>
     </header>
-    <div class="hide-winner">
-      <p>Hey! No Peeking!</p>
-    </div>
     <div class="box">
       <div class="human player-container">
         <h2>You</h2>
         <span>0</span>
       </div>
-      <table>
+      <table id="click-box">
         <tr>
-          <td id="0" col="0" data-row="0"></td>
-          <td id="1" col="1" data-row="0"></td>
-          <td id="2" col="2" data-row="0"></td>
+          <td col="0" data-row="0">
+            <span id="0"></span>
+          </td>
+          <td col="1" data-row="0">
+            <span id="1"></span>
+          </td>
+          <td col="2" data-row="0">
+            <span id="2"></span>
+          </td>
         </tr>
         <tr>
-          <td id="3" col="0" data-row="1"></td>
-          <td id="4" col="1" data-row="1"></td>
-          <td id="5" col="2" data-row="1"></td>
+          <td col="0" data-row="1">
+            <span id="3"></span>
+          </td>
+          <td col="1" data-row="1">
+            <span id="4"></span>
+          </td>
+          <td col="2" data-row="1">
+            <span id="5"></span>
+          </td>
         </tr>
         <tr>
-          <td id="6" col="0" data-row="2"></td>
-          <td id="7" col="1" data-row="2"></td>
-          <td id="8" col="2" data-row="2"></td>
+          <td col="0" data-row="2">
+            <span id="6"></span>
+          </td>
+          <td col="1" data-row="2">
+            <span id="7"></span>
+          </td>
+          <td col="2" data-row="2">
+            <span id="8"></span>
+          </td>
         </tr>
       </table>
       <div class="game-box">
@@ -73,6 +88,9 @@
         <h2>Bot</h2>
         <span>0</span>
       </div>
+    </div>
+    <div class="hide-winner">
+      <p id="result-text">Hey! No Peeking!</p>
     </div>
     <script src="game.js"></script>
   </body>
