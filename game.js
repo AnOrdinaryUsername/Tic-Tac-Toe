@@ -32,7 +32,7 @@ const Winner = (man, machine) => {
   const declareWinner = (win) => {
     man.resetScore();
     machine.resetScore();
-    const winnerText = document.querySelector('#win-text');
+    const winnerText = document.querySelector('#result-text');
     if (win === 'human') winnerText.textContent = 'You won! Wooooo!';
     else if (win === 'bot') winnerText.textContent = 'The Bot won! Nooooo!';
   };
