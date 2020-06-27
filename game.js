@@ -2,10 +2,21 @@ const PlayerScore = () => {
   let score = 0;
 
   const getScore = () => score;
-  const incrementScore = () => { score += 1; };
+  const incrementScore = (str) => {
+    score += 1;
+    if (str === 'human') {
+      const humanScore = document.getElementsByTagName('span')[0];
+      humanScore.textContent = score;
+    } else if (str === 'bot') {
+      const botScore = document.getElementsByTagName('span')[10];
+      botScore.textContent = score;
+    }
+  };
+
   const resetScore = () => {
     score = 0;
-    const [humanScore, botScore] = document.querySelectorAll('span');
+    const humanScore = document.getElementsByTagName('span')[0];
+    const botScore = document.getElementsByTagName('span')[10];
     humanScore.textContent = '0';
     botScore.textContent = '0';
   };
@@ -19,7 +30,9 @@ const Winner = (man, machine) => {
   const getMachine = () => machine;
 
   const declareWinner = (win) => {
-    const winnerText = document.querySelector('p');
+    man.resetScore();
+    machine.resetScore();
+    const winnerText = document.querySelector('#win-text');
     if (win === 'human') winnerText.textContent = 'You won! Wooooo!';
     else if (win === 'bot') winnerText.textContent = 'The Bot won! Nooooo!';
   };
@@ -46,7 +59,7 @@ const GameBoard = (theWinner) => {
   const samePlayer = theWinner.getMan();
   const sameBot = theWinner.getMachine();
 
-  let turns = 1;
+  let turns = 0;
 
   /* **********************
   *     Tic-Tac-Toe       *
@@ -76,17 +89,19 @@ const GameBoard = (theWinner) => {
       const b = board[winCombo[i][1]];
       const c = board[winCombo[i][2]];
 
+      if (c === null || b === null || a === null) continue;
+
       // Concatenate all 3 board indices together into a string and remove
       // all commas
       const threeMarks = a.concat(b.concat(c)).toString().replace(/,/g, '');
 
       if (threeMarks === inARow) {
         if (char === 'X') {
-          samePlayer.incrementScore();
+          samePlayer.incrementScore('human');
           return true;
         }
         if (char === 'O') {
-          sameBot.incrementScore();
+          sameBot.incrementScore('bot');
           return true;
         }
       }
@@ -97,29 +112,64 @@ const GameBoard = (theWinner) => {
   // Set entire board array to null, reset turns back to 1, and remove all
   // Xs and Os on visual webpage
   const resetBoardState = () => {
-    board.forEach;
+    for (let i = 0; i < board.length; ++i) {
+      board[i] = null;
+      const table = document.querySelector('table');
+      table.getElementsByTagName('span')[i].textContent = '';
+    }
+    turns = 0;
+  };
+
+  // Function to grab all empty boxes for the bot
+  const getAvailableBoxes = () => {
+    const index = [];
+    for (let i = 0; i < board.length; ++i) {
+      if (board[i] === null) index.push(i);
+    }
+    return index;
   };
 
   const checkBoardState = () => {
-    const game = document.querySelector('table');
+    const table = document.querySelector('#click-box');
 
-    game.addEventListener('click', (e) => {
+    table.addEventListener('click', (e) => {
+      const tdChild = e.target.querySelector('span');
+
+      if (e.target.tagName === 'TD' && tdChild.textContent === ''
+            && turns < 10) {
+        const index = parseInt(tdChild.id, 10);
+        board[index] = 'X';
+        tdChild.textContent = 'X';
+        turns += 1;
+
+        if (turns !== 9) {
+          // Grabs a new array with all the index values of null in board,
+          // where null represents an empty box
+          const emptyBoxesArray = getAvailableBoxes();
+          // Randomly choose an indice of the new array
+          const indice = Math.floor(Math.random() * emptyBoxesArray.length);
+          // Use the value in new array as index for the board array
+          const botChoice = emptyBoxesArray[indice];
+
+          board[botChoice] = 'O';
+          const gameBox = document.querySelector('table');
+          gameBox.getElementsByTagName('span')[botChoice].textContent = 'O';
+          turns += 1;
+        }
+      }
       // Earliest win is in 5 turns and this function checks on turns 5-9
       if (turns > 4 && turns < 10) {
-        if (checkForWin('X') && checkForWin('O')) {
+        if (checkForWin('X') || checkForWin('O')) {
+          resetBoardState();
+        } else if (turns === 9) {
+          // Draw occurs
           resetBoardState();
         }
       }
 
       // Check if 3 wins reach and declare winner
       if (theWinner.isWinnerPresent()) {
-        return;
-      }
-
-      if (e.target.id.textContent === '' && turns < 9) {
-        const index = parseInt(e.target.id, 10);
-        board[index] = 'x';
-        turns += 1;
+        resetBoardState();
       }
     });
   };
@@ -128,13 +178,17 @@ const GameBoard = (theWinner) => {
 };
 
 const main = (() => {
-  const human = PlayerScore();
-  const bot = PlayerScore();
+  const startGame = () => {
+    const human = PlayerScore();
+    const bot = PlayerScore();
 
-  const winningBeing = Winner(human, bot);
+    const winningBeing = Winner(human, bot);
 
-  const gameTime = GameBoard(winningBeing);
-  gameTime.checkBoardState();
+    const gameTime = GameBoard(winningBeing);
+    gameTime.checkBoardState();
+  };
+
+  return { startGame };
 })();
 
-main();
+main.startGame();
