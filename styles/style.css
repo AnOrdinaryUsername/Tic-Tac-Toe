@@ -1,14 +1,33 @@
 header {
-  height: max-content;
+  display: flex;
+  height: 15vh;
+  justify-content: center;
+  /* background-color: hsl(29, 93%, 74%); */
+}
+
+.box-behind {
+  background-color: hsl(344, 89%, 33%);
+  display: flex;
+  height: 7.54rem;
+  transform: rotate(5deg);
+  width: 30.7rem;
+  padding: 1rem 0.5rem;
+  position: absolute;
+  top: 2rem;
 }
 
 h1 {
+  align-self: center;
+  border-radius: inherit;
+  background-color: hsl(200, 18%, 20%);
+  color: hsl(200, 15%, 94%);
   font-size: 3.16em;
   font-weight: 400;
   letter-spacing: 3px;
   margin: 0;
-  padding: 0.67em 0 0;
-  text-align: center;
+  padding: 0.67rem 1.4rem;
+  position: relative;
+  justify-self: center;
 }
 
 .hide-winner {
@@ -18,7 +37,7 @@ h1 {
 }
 
 #result-text {
-  background-color: hsl(0, 0%, 70%);
+  background-color: hsl(10, 90%, 67%);
   font-size: 2.37em;
   letter-spacing: 0.2rem;
   padding: 3.2rem;
@@ -36,19 +55,20 @@ h1 {
   align-items: center;
   display: flex;
   flex-flow: row wrap;
-  margin: 4rem 0rem;
+  margin: 1.4rem 0 4.8rem 0;
   justify-content: space-evenly;
 }
 
 .player-container {
   align-items: center;
-  background-color: hsl(0, 0%, 70%);
+  background-color: hsl(35, 80%, 70%);
   border-radius: 6rem;
   color: black;
   display: flex;
   flex-flow: column wrap;
   letter-spacing: 4px;
   justify-content: center;
+  box-shadow: 0px 9px 11px 0px hsl(35, 70%, 20%);
 }
 
 h2 {
@@ -113,6 +133,18 @@ td > span {
   grid-template-rows: repeat(3, 12rem);
   position: relative;
   justify-items: center;
+
+  padding: 2rem;
+  border-radius: 5rem;
+  background-color: beige;
+}
+
+@media (max-width: 768px) {
+  .game-box {
+    background-color: inherit;
+    margin-bottom: 1.4rem;
+    padding: 0;
+  }
 }
 
 .vert-color {
@@ -172,7 +204,7 @@ td > span {
 }
 
 body {
-  background-color: hsl(0, 0%, 90%);
+  background-color: hsl(44, 73%, 85%);
   font-family: "Varela Round", sans-serif;
   font-size: 1.6rem;
   min-height: 100%;
