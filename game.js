@@ -5,18 +5,18 @@ const PlayerScore = () => {
   const incrementScore = (str) => {
     score += 1;
     if (str === 'human') {
-      const humanScore = document.getElementsByTagName('span')[0];
+      const humanScore = document.querySelector('#man');
       humanScore.textContent = score;
     } else if (str === 'bot') {
-      const botScore = document.getElementsByTagName('span')[10];
+      const botScore = document.querySelector('#cpu');
       botScore.textContent = score;
     }
   };
 
   const resetScore = () => {
     score = 0;
-    const humanScore = document.getElementsByTagName('span')[0];
-    const botScore = document.getElementsByTagName('span')[10];
+    const humanScore = document.querySelector('#man');
+    const botScore = document.querySelector('#cpu');
     humanScore.textContent = '0';
     botScore.textContent = '0';
   };
