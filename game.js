@@ -29,29 +29,26 @@ const Winner = (man, machine) => {
   const getMan = () => man;
   const getMachine = () => machine;
 
-  const declareWinner = (win) => {
-    man.resetScore();
-    machine.resetScore();
+  const declareWinner = () => {
     const winnerText = document.querySelector('#result-text');
-    if (win === 'human') winnerText.textContent = 'You won! Wooooo!';
-    else if (win === 'bot') winnerText.textContent = 'The Bot won! Nooooo!';
+    if (man.getScore() === 3) winnerText.textContent = 'You won! Wooooo!';
+    else if (machine.getScore() === 3) {
+      winnerText.textContent = 'The Bot won! Nooooo!';
+    }
   };
 
   // Game is best of 5 so 3 wins is all it takes
   const isWinnerPresent = () => {
-    if (man.getScore() === 3) {
-      declareWinner('human');
-      return true;
-    }
-    if (machine.getScore() === 3) {
-      declareWinner('bot');
+    if (man.getScore() === 3 || machine.getScore === 3) {
       return true;
     }
 
     return false;
   };
 
-  return { isWinnerPresent, getMan, getMachine };
+  return {
+    isWinnerPresent, declareWinner, getMan, getMachine,
+  };
 };
 
 const GameBoard = (theWinner) => {
@@ -79,6 +76,18 @@ const GameBoard = (theWinner) => {
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Horizontal wins
     [0, 4, 8], [2, 4, 6]]; // Diagonal wins
 
+  const animateWinningRow = (first, second, third) => {
+    const winningRow = [first, second, third];
+
+    for (let i = 0; i < 3; ++i) {
+      const index = winningRow[i];
+      const gameBoard = document.querySelector('table');
+      const char = gameBoard.getElementsByTagName('span')[index];
+
+      char.classList.add('blink');
+    }
+  };
+
   const checkForWin = (char) => {
     const inARow = char.concat(char.concat(char));
     for (let i = 0; i < winCombo.length; ++i) {
@@ -96,6 +105,7 @@ const GameBoard = (theWinner) => {
       const threeMarks = a.concat(b.concat(c)).toString().replace(/,/g, '');
 
       if (threeMarks === inARow) {
+        animateWinningRow(winCombo[i][0], winCombo[i][1], winCombo[i][2]);
         if (char === 'X') {
           samePlayer.incrementScore('human');
           return true;
@@ -109,13 +119,20 @@ const GameBoard = (theWinner) => {
     return false;
   };
 
-  // Set entire board array to null, reset turns back to 1, and remove all
+  // Set entire board array to null, reset turns back to 0, and remove all
   // Xs and Os on visual webpage
   const resetBoardState = () => {
     for (let i = 0; i < board.length; ++i) {
       board[i] = null;
       const table = document.querySelector('table');
-      table.getElementsByTagName('span')[i].textContent = '';
+      const boardNode = table.getElementsByTagName('span')[i];
+
+      // Remove blinking animations from winning row
+      if (boardNode.classList.contains('blink')) {
+        boardNode.classList.remove('blink');
+      }
+
+      boardNode.textContent = '';
     }
     turns = 0;
   };
@@ -131,9 +148,23 @@ const GameBoard = (theWinner) => {
 
   const checkBoardState = () => {
     const table = document.querySelector('#click-box');
+    let winnerOrDrawPresent = false;
 
     table.addEventListener('click', (e) => {
       const tdChild = e.target.querySelector('span');
+
+      if (winnerOrDrawPresent) {
+        resetBoardState();
+        // Reset player scores and text box
+        if (theWinner.isWinnerPresent()) {
+          samePlayer.resetScore();
+          sameBot.resetScore();
+          const winnerText = document.querySelector('#result-text');
+          winnerText.textContent = 'Click the Squares!';
+        }
+
+        winnerOrDrawPresent = false;
+      }
 
       if (e.target.tagName === 'TD' && tdChild.textContent === ''
             && turns < 10) {
@@ -142,6 +173,23 @@ const GameBoard = (theWinner) => {
         tdChild.textContent = 'X';
         turns += 1;
 
+        // Earliest win is in 5 turns and this function checks on turns 5-9
+        if (turns > 4 && turns < 10) {
+          if (checkForWin('X') || checkForWin('O')) {
+            winnerOrDrawPresent = true;
+            // Check if 3 wins reach and declare winner
+            if (theWinner.isWinnerPresent()) theWinner.declareWinner();
+            return;
+          }
+          // If no winners, then it's a draw
+          if (turns === 9) {
+            winnerOrDrawPresent = true;
+            const winnerText = document.querySelector('#result-text');
+            winnerText.textContent = "It's a draw!";
+          }
+        }
+
+        // This is where the bot's "AI" is
         if (turns !== 9) {
           // Grabs a new array with all the index values of null in board,
           // where null represents an empty box
@@ -156,20 +204,6 @@ const GameBoard = (theWinner) => {
           gameBox.getElementsByTagName('span')[botChoice].textContent = 'O';
           turns += 1;
         }
-      }
-      // Earliest win is in 5 turns and this function checks on turns 5-9
-      if (turns > 4 && turns < 10) {
-        if (checkForWin('X') || checkForWin('O')) {
-          resetBoardState();
-        } else if (turns === 9) {
-          // Draw occurs
-          resetBoardState();
-        }
-      }
-
-      // Check if 3 wins reach and declare winner
-      if (theWinner.isWinnerPresent()) {
-        resetBoardState();
       }
     });
   };
