@@ -36,6 +36,17 @@ h1 {
   justify-content: center;
 }
 
+/* Animation to cause winning row to blink */
+.blink {
+  animation: blinker 1.5s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
 #result-text {
   background-color: hsl(10, 90%, 67%);
   font-size: 2.37em;
@@ -50,6 +61,8 @@ h1 {
     padding: 1.6rem;
   }
 }
+
+
 
 .box {
   align-items: center;
@@ -119,7 +132,7 @@ td {
   text-align: center;
 }
 
-td > span {
+td>span {
   font-size: 3.16em;
   font-weight: 900;
   padding: 0;
