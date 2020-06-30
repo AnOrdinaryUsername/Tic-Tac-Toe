@@ -39,7 +39,7 @@ const Winner = (man, machine) => {
 
   // Game is best of 5 so 3 wins is all it takes
   const isWinnerPresent = () => {
-    if (man.getScore() === 3 || machine.getScore === 3) {
+    if (man.getScore() === 3 || machine.getScore() === 3) {
       return true;
     }
 
@@ -203,6 +203,12 @@ const GameBoard = (theWinner) => {
           const gameBox = document.querySelector('table');
           gameBox.getElementsByTagName('span')[botChoice].textContent = 'O';
           turns += 1;
+
+          if (checkForWin('O')) {
+            winnerOrDrawPresent = true;
+            // Check if 3 wins reach and declare winner
+            if (theWinner.isWinnerPresent()) theWinner.declareWinner();
+          }
         }
       }
     });
